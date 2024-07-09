@@ -12,18 +12,18 @@ APP_BUNDLE="Vorta"
 
 
 # Sign app bundle, Sparkle and Borg
-codesign --verbose --force --sign "$CERTIFICATE_NAME" --timestamp --deep --options runtime \
-    $APP_BUNDLE.app/Contents/Frameworks/Sparkle.framework
+#codesign --verbose --force --sign "$CERTIFICATE_NAME" --timestamp --deep --options runtime \
+#    $APP_BUNDLE.app/Contents/Frameworks/Sparkle.framework
 
-find $APP_BUNDLE.app/Contents/Resources/borg-dir \
-    -type f \( -name \*.so -or -name \*.dylib -or -name borg.exe -or -name Python \) \
-    -exec codesign --verbose --force --timestamp --deep --sign "${CERTIFICATE_NAME}" \
-    --entitlements ../package/entitlements.plist  --options runtime {} \;
+#find $APP_BUNDLE.app/Contents/Resources/borg-dir \
+#    -type f \( -name \*.so -or -name \*.dylib -or -name borg.exe -or -name Python \) \
+#    -exec codesign --verbose --force --timestamp --deep --sign "${CERTIFICATE_NAME}" \
+#    --entitlements ../package/entitlements.plist  --options runtime {} \;
 
-codesign --verify --force --verbose --deep \
-        --options runtime --timestamp \
-        --entitlements ../package/entitlements.plist \
-        --sign "$CERTIFICATE_NAME" $APP_BUNDLE.app
+#codesign --verify --force --verbose --deep \
+#        --options runtime --timestamp \
+#        --entitlements ../package/entitlements.plist \
+#        --sign "$CERTIFICATE_NAME" $APP_BUNDLE.app
 
 
 # Create DMG
@@ -39,14 +39,14 @@ create-dmg \
   "Vorta.app"
 
 # Notarize DMG
-xcrun notarytool submit \
-    --output-format plist --wait --timeout 10m \
-    --apple-id $APPLE_ID_USER \
-    --password $APPLE_ID_PASSWORD \
-    --team-id $APPLE_TEAM_ID \
-    "$APP_BUNDLE.dmg"
+#xcrun notarytool submit \
+#    --output-format plist --wait --timeout 10m \
+#    --apple-id $APPLE_ID_USER \
+#    --password $APPLE_ID_PASSWORD \
+#    --team-id $APPLE_TEAM_ID \
+#    "$APP_BUNDLE.dmg"
 
 # Staple the notary ticket
-xcrun stapler staple $APP_BUNDLE.dmg
-xcrun stapler staple $APP_BUNDLE.app
-xcrun stapler validate $APP_BUNDLE.dmg
+#xcrun stapler staple $APP_BUNDLE.dmg
+#xcrun stapler staple $APP_BUNDLE.app
+#xcrun stapler validate $APP_BUNDLE.dmg
